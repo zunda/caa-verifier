@@ -6,7 +6,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cert-manager/cert-manager/pkg/issuer/acme/dns/util"
 	"k8s.io/klog/v2"
 )
 
@@ -33,7 +32,7 @@ func main() {
 	domain := flag.Arg(0)
 	issuers := []string{"letsencrypt.org"}
 
-	err := util.ValidateCAA(domain, issuers, false, util.RecursiveNameservers)
+	err := ValidateCAA(domain, issuers, false, RecursiveNameservers)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
