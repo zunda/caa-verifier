@@ -306,6 +306,7 @@ func ValidateCAA(domain string, issuerID []string, iswildcard bool, nameservers 
 			if err != nil {
 				return fmt.Errorf("Could not validate CAA record: %s", err)
 			}
+			logf.V(logf.ExtendedInfoLevel).Infof("Received DNS response:\n%v\n\n", msg)
 			// domain may not exist, which is fine. It will fail HTTP01 checks
 			// but DNS01 checks will create a proper domain
 			if msg.Rcode == dns.RcodeNameError {
@@ -331,6 +332,7 @@ func ValidateCAA(domain string, issuerID []string, iswildcard bool, nameservers 
 			if !ok {
 				continue
 			}
+			logf.V(logf.ExtendedInfoLevel).Infof("Found: %v", caa)
 			caas = append(caas, caa)
 		}
 		// once we've found any CAA records, we use these CAAs
